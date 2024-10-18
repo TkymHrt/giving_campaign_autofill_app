@@ -62,7 +62,7 @@ Giving Campaignの投票フォームを自動入力できる時短アプリ🚀
     ```
 3. 変更をコミット
     ```bash
-    git commit -m 'Add amazing feature
+    git commit -m 'Add amazing feature'
     ```
 4. ブランチをプッシュ
     ```bash

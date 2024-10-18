@@ -48,6 +48,7 @@ Giving Campaignの投票フォームを自動入力できる、学生のため�
 
 <div style="display: flex; justify-content: space-between;">
     <img src="assets/screenshot/Screenshot_20241019_015001.png" alt="ホーム画面" width="30%"/>
+    <img src="assets/screenshot/Screenshot_20241019_020529.png" alt="入力済みフォーム画面" width="30%"/>
 </div>
 
 ## 🤝 コントリビューション

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giving_campaign_autofill_app/pages/auto_input_page.dart';
+import 'package:giving_campaign_autofill_app/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Giving Campaign Autofill app',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: MaterialTheme.lightScheme(),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: MaterialTheme.darkScheme(),
       ),
       home: const AutoInputPage(),
     );

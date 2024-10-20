@@ -240,7 +240,7 @@ class _UserInfoModalState extends State<UserInfoModal> {
                       child: Text('キャンセル'),
                     ),
                     SizedBox(width: 8),
-                    ElevatedButton(
+                    FilledButton(
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
                           final userInfo = UserInfo(

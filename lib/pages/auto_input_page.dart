@@ -82,6 +82,9 @@ class _AutoInputPageState extends State<AutoInputPage> {
           },
         ),
       );
+
+    const defaultUrl = 'https://www.giving-campaign.jp/';
+    controller.loadRequest(Uri.parse(defaultUrl));
   }
 
   Future<void> _loadUrl() async {
@@ -117,83 +120,102 @@ class _AutoInputPageState extends State<AutoInputPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Giving Campaign Autofill app'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: _showUserInfoModal,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Giving Campaign Autofill App',
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _urlController,
-                    decoration: InputDecoration(
-                      hintText: 'URLを入力してください',
-                      border: OutlineInputBorder(),
-                    ),
-                    onSubmitted: (_) => _loadUrl(),
-                  ),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: _loadUrl,
-                  child: Text('開く'),
-                ),
-              ],
+          actions: [
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: _showUserInfoModal,
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            userInfo != null
-                                ? '${userInfo!.lastName} ${userInfo!.firstName}'
-                                : 'ユーザー情報未設定',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          if (userInfo != null)
+          ],
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _urlController,
+                      decoration: InputDecoration(
+                        hintText: 'URLを入力してください',
+                      ),
+                      onSubmitted: (_) => _loadUrl(),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  FilledButton(
+                    onPressed: _loadUrl,
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 12.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: Text('開く'),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Text(
-                              '${userInfo!.email}',
-                              style: TextStyle(fontSize: 12),
+                              userInfo != null
+                                  ? '${userInfo!.lastName} ${userInfo!.firstName}'
+                                  : 'ユーザー情報未設定',
                             ),
-                        ],
+                            if (userInfo != null)
+                              Text(
+                                '${userInfo!.email}',
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: _injectAutoInputScript,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                  SizedBox(width: 8),
+                  FilledButton(
+                    onPressed: _injectAutoInputScript,
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 12.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: Text('自動入力を実行'),
                   ),
-                  child: Text('自動入力を実行', style: TextStyle(color: Colors.white)),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          if (isLoading) LinearProgressIndicator(),
-          Expanded(
-            child: WebViewWidget(controller: controller),
-          ),
-        ],
+            if (isLoading) LinearProgressIndicator(),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: WebViewWidget(controller: controller),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
